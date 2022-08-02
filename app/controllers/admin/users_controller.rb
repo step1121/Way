@@ -17,15 +17,14 @@ class Admin::UsersController < ApplicationController
     redirect_to admin_users_path
   end
 
-
   private
 
-  def ensure_user
-    @user = User.find(params[:id])
-  end
-
-  def user_params
-    params.require(:user).permit(:user_status)
-  end
+    def ensure_user
+      @user = User.find(params[:id])
+    end
+  
+    def user_params
+      params.require(:user).permit(:user_status)
+    end
 end
 
