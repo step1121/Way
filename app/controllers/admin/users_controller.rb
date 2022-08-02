@@ -10,7 +10,7 @@ class Admin::UsersController < ApplicationController
     @visions = @user.visions.order(finish_on: "ASC")
   end
 
-
+  # ユーザーの退会
   def out
     @user.update(user_status: true)
     reset_session
