@@ -16,46 +16,46 @@
 
         <div class="col-3 d-flex justify-content-center my-auto">
         <!--タスクの数によって分岐-->
-      <% if vision.tasks.count == 0 %>
-        <p class="text-danger">No Task</p>
+          <!--タスク0個の場合-->
+          <% if vision.tasks.count == 0 %>
+            <p class="text-danger">No Task</p>
+        
+          <!--タスクがすべて完了時ている時の場合-->
+          <% elsif vision.tasks.where(completion_status: true).count == vision.tasks.count %>
+            <p><%= image_tag vision.get_production_image, class: "rounded production-image" %></p>
+        
+          <!--未完了のタスクがある場合-->
+          <% else %>
+            <!--タスクの達成割合グラフ-->
+            <canvas id="<%= vision.id %>"></canvas>
+            <script>
+              var ctx = document.getElementById("<%= vision.id %>");
+              var data = [<%= vision.tasks.where(completion_status: true).count %>, <%= vision.tasks.where(completion_status: false).count %>]
+              var myLineChart = new Chart(ctx, {
+                type: 'pie' ,
+                data: {
+                  labels: ['達成', '未達成'],
+                  datasets: [{
+                    data: data,
+                    backgroundColor: ['#48f', '#e03448'],
+                  }],
+                },
+                Options: {
+                  pie: {
+                  }
+                }
+              });
+            </script>
+          <% end %>
+        </div>
 
-      <% elsif vision.tasks.where(completion_status: true).count == vision.tasks.count %>
-        <p><%= image_tag vision.get_production_image, class: "rounded production-image" %></p>
+        <div class="col text-center my-auto">
+          <%= render "public/visions/count", vision: vision %>
+        </div>
 
-      <% else %>
-        <!--タスクの達成割合表-->
-        <canvas id="<%= vision.id %>"></canvas>
-        <script>
-          var ctx = document.getElementById("<%= vision.id %>");
-          var data = [<%= vision.tasks.where(completion_status: true).count %>, <%= vision.tasks.where(completion_status: false).count %>]
-          var myLineChart = new Chart(ctx, {
-            type: 'pie' ,
-            data: {
-              labels: ['達成', '未達成'],
-              datasets: [{
-                data: data,
-                backgroundColor: ['#48f', '#e03448'],
-              }],
-            },
-            Options: {
-              pie: {
-              }
-            }
-          });
-        </script>
-      <% end %>
-    </div>
-  </script>
-  <% end %>
-  </div>
-
-  <div class="col text-center my-auto">
-  <%= render "public/visions/count", vision: vision %>
-  </div>
-
-  </div>
-  <% end %>
+      </div>
+    <% end %>
   <% else %>
-  <h3>Nothing WAY</h3>
+    <h3>Nothing WAY</h3>
   <% end %>
 </div>
