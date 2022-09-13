@@ -66,7 +66,6 @@ $(window).on('turbolinks:load', function() {
 });
 
 // メッセージ画面スクロールバー自動下降（メッセージ送信時）
-
 $(function() {
   const add = document.getElementById("add");
   if (!add){ return false;}
@@ -75,23 +74,3 @@ $(function() {
     bar.scrollTo(0, bar.scrollHeight);
   });
 });
-
-// $(function() {
-//   const add = document.("#input-file");
-//   add.addEventListener("click", () => {
-//     const button = document.getElementById("button");
-//     button.submit.disabled = false;
-//   });
-// });
-
-
-// $(window).on('turbolinks:load', function() {
-// $(function() {
-//   const inputfile = document.getElementById("input-file");
-//   if (!inputfile){ return false;}
-//     inputfile.addEventListener('add', (e) => {
-//       let button = document.getElementById("button");
-//       button.submit.disabled = false;
-//     });
-//   });
-// });
